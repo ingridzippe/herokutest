@@ -1,40 +1,40 @@
 require('dotenv').config();
 const nodemailer = require("nodemailer");
 var express = require("express");
-var app = express();
-var projects = require("./projects.json");
+var index = express();
+var projects = require("../projects.json");
 var exphbs = require("express-handlebars");
 var path = require("path");
 var bodyParser = require("body-parser");
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+index.use(bodyParser.urlencoded({extended: true}));
+index.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, "/public")));
+index.use(express.static(path.join(__dirname, "/public")));
 
-app.set("views", path.join(__dirname, "views"));
-app.engine(".hbs", exphbs({
+index.set("views", path.join(__dirname, "views"));
+index.engine(".hbs", exphbs({
     extname: ".hbs",
     defaultLayout: false,
-    helpers: require("./helpers")
+    helpers: require("../helpers")
 }));
-app.set("view engine", ".hbs");
+index.set("view engine", ".hbs");
 
 
 
-app.get("/", function(req, res) {
+index.get("/", function(req, res) {
     res.render("home");
 });
-app.get("/contact", function(req, res) {
+index.get("/contact", function(req, res) {
     res.render("contact", {submitted: "no"});
 });
-app.get("/work", function(req, res) {
+index.get("/work", function(req, res) {
     res.render("work", {projects: projects});
 });
-app.get("/about", function(req, res) {
+index.get("/about", function(req, res) {
     res.render("about");
 });
-app.get("/project/:pid", function(req, res, next) {
+index.get("/project/:pid", function(req, res, next) {
     console.log("log projet id");
     console.log(req.params.pid);
     var pid = req.params.pid;
@@ -52,7 +52,7 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-app.post("/contact", function(req, res, next) {
+index.post("/contact", function(req, res, next) {
     console.log("contact form posted");
     console.log(req.body);
     var name = req.body.fullname;
@@ -82,5 +82,5 @@ app.post("/contact", function(req, res, next) {
 
 
 var port = process.env.PORT || 8080;
-app.listen(port);
+index.listen(port);
 console.log("Express started. Listening on port %s", port);
