@@ -22,6 +22,7 @@ index.set("view engine", ".hbs");
 
 
 
+
 index.get("/", function(req, res) {
     res.render("home");
 });
