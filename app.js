@@ -2,7 +2,7 @@ require('dotenv').config();
 const nodemailer = require("nodemailer");
 var express = require("express");
 var index = express();
-var projects = require("../projects.json");
+var projects = require("./projects.json");
 var exphbs = require("express-handlebars");
 var path = require("path");
 var bodyParser = require("body-parser");
@@ -16,7 +16,7 @@ index.set("views", path.join(__dirname, "views"));
 index.engine(".hbs", exphbs({
     extname: ".hbs",
     defaultLayout: false,
-    helpers: require("../helpers")
+    helpers: require("./helpers")
 }));
 index.set("view engine", ".hbs");
 
