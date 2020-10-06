@@ -6,11 +6,11 @@ const PORT = process.env.PORT || 5000
 
 index.use(express.static(path.join(__dirname, 'public')))
 index.set('views', path.join(__dirname, 'views'))
-index.engine(".hbs", exphbs({
-    extname: ".hbs",
-    defaultLayout: false
-}))
-index.set('view engine', '.hbs')
+// index.engine(".hbs", exphbs({
+//     extname: ".hbs",
+//     defaultLayout: false
+// }))
+index.set('view engine', 'ejs')
 index.get('/', (req, res) => res.send("home"))
 index.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
